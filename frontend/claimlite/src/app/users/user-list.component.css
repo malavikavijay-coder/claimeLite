@@ -1,0 +1,160 @@
+.page {
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #f5f7fa;
+}
+
+
+/* Header */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 15px;
+}
+
+
+/* Loading and Empty State */
+
+.state-card {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.state-content {
+  padding: 40px;
+  text-align: center;
+}
+
+.state-content h3 {
+  margin: 15px 0 8px 0;
+  font-size: 22px;
+}
+
+.state-content p {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.empty-icon {
+  font-size: 40px;
+}
+
+
+/* User Cards */
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.user-card {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.user-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 25px;
+}
+
+
+/* Avatar */
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 20px;
+  font-weight: 600;
+
+  background: #e8eef7;
+  color: #245b9e;
+}
+
+
+/* User Information */
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-info h3 {
+  margin: 0 0 15px 0;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  color: #444;
+}
+
+.label {
+  margin-bottom: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+  .page {
+    padding: 25px 15px;
+  }
+
+  .header {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .user-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .header {
+    flex-direction: column;
+  }
+
+}

@@ -1,0 +1,232 @@
+<div class="page">
+
+  <div class="form-card">
+
+    <div class="header">
+
+      <div>
+        <h2>Add Claim</h2>
+
+        <p class="subtitle">
+          Submit a new insurance claim.
+        </p>
+      </div>
+      
+      <button
+       type="button"
+       class="close-button"
+       (click)="cancel()"
+  >
+        ×
+      </button>
+    </div>
+
+
+    <div class="form-content">
+
+      <!-- User -->
+
+      <div class="form-group">
+
+        <label for="userId">
+          Policyholder
+        </label>
+
+        <select
+          id="userId"
+          [formControl]="claimForm.controls.userId"
+        >
+
+          <option value="">
+            Select Policyholder
+          </option>
+
+          @for (user of users; track user._id) {
+
+            <option [value]="user._id">
+              {{ user.fullName }} - {{ user.email }}
+            </option>
+
+          }
+
+        </select>
+
+        @if (
+          claimForm.controls.userId.touched &&
+          claimForm.controls.userId.invalid
+        ) {
+
+          <span class="error">
+            Please select a policyholder.
+          </span>
+
+        }
+
+      </div>
+
+
+      <!-- Claim Type -->
+
+      <div class="form-group">
+
+        <label for="claimType">
+          Claim Type
+        </label>
+
+        <select
+          id="claimType"
+          [formControl]="claimForm.controls.claimType"
+        >
+
+          <option value="">
+            Select Claim Type
+          </option>
+
+          <option value="Auto">
+            Auto
+          </option>
+
+          <option value="Home">
+            Home
+          </option>
+
+          <option value="Health">
+            Health
+          </option>
+
+        </select>
+
+        @if (
+          claimForm.controls.claimType.touched &&
+          claimForm.controls.claimType.invalid
+        ) {
+
+          <span class="error">
+            Please select a claim type.
+          </span>
+
+        }
+
+      </div>
+
+
+      <!-- Amount -->
+
+      <div class="form-group">
+
+        <label for="amount">
+          Claim Amount
+        </label>
+
+        <input
+          id="amount"
+          type="number"
+          placeholder="Enter claim amount"
+          [formControl]="claimForm.controls.amount"
+        />
+
+        @if (
+          claimForm.controls.amount.touched &&
+          claimForm.controls.amount.invalid
+        ) {
+
+          <span class="error">
+
+            @if (claimForm.controls.amount.errors?.['required']) {
+              Claim amount is required.
+            }
+
+            @else if (claimForm.controls.amount.errors?.['min']) {
+              Amount must be at least ₹0.01.
+            }
+
+            @else if (claimForm.controls.amount.errors?.['max']) {
+              Amount cannot exceed ₹10,00,000.
+            }
+
+          </span>
+
+        }
+
+      </div>
+
+
+      <!-- Description -->
+
+      <div class="form-group">
+
+        <label for="description">
+          Description
+        </label>
+
+        <textarea
+          id="description"
+          rows="5"
+          placeholder="Enter claim description"
+          [formControl]="claimForm.controls.description"
+        ></textarea>
+
+        @if (
+          claimForm.controls.description.touched &&
+          claimForm.controls.description.invalid
+        ) {
+
+          <span class="error">
+
+            @if (claimForm.controls.description.errors?.['required']) {
+              Description is required.
+            }
+
+            @else if (claimForm.controls.description.errors?.['minlength']) {
+              Description must be at least 10 characters.
+            }
+
+            @else if (claimForm.controls.description.errors?.['maxlength']) {
+              Description cannot exceed 500 characters.
+            }
+
+          </span>
+
+        }
+
+      </div>
+
+
+      <!-- Success message -->
+
+      @if (successMessage) {
+
+        <div class="success-message">
+          {{ successMessage }}
+        </div>
+
+      }
+
+
+      <!-- Buttons -->
+
+      <div class="actions">
+
+        <duet-button
+          variation="secondary"
+          (click)="cancel()"
+        >
+          Cancel
+        </duet-button>
+
+
+        <duet-button
+          variation="primary"
+          [disabled]="claimForm.invalid || loading"
+          (click)="submit()"
+        >
+          {{ loading ? 'Saving...' : 'Save Claim' }}
+        </duet-button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

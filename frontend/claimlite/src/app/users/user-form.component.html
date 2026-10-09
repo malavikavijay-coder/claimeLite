@@ -1,0 +1,176 @@
+<div class="page">
+
+  <div class="form-container">
+
+    <div class="form-header">
+
+      <div>
+        <h2>Add Policyholder</h2>
+
+        <p>
+          Enter the policyholder details below.
+        </p>
+      </div>
+      <button
+  type="button"
+  class="close-button"
+  (click)="cancel()"
+>
+  ×
+</button>
+
+    </div>
+    
+
+
+    @if (successMessage) {
+
+      <div class="success-message">
+        <span class="success-icon">✓</span>
+
+        <span>
+          {{ successMessage }}
+        </span>
+      </div>
+
+    }
+
+
+    <div class="form-card">
+
+      <form
+        [formGroup]="userForm"
+        (ngSubmit)="submit()"
+      >
+
+        <div class="form-field">
+
+          <label for="fullName">
+            Full Name
+          </label>
+
+          <input
+            id="fullName"
+            type="text"
+            formControlName="fullName"
+            placeholder="Enter full name"
+          />
+
+          @if (
+            userForm.get('fullName')?.touched &&
+            userForm.get('fullName')?.invalid
+          ) {
+
+            <div class="error-message">
+
+              @if (userForm.get('fullName')?.errors?.['required']) {
+                <span>Full name is required.</span>
+              }
+
+              @if (userForm.get('fullName')?.errors?.['minlength']) {
+                <span>Full name must be at least 2 characters.</span>
+              }
+
+              @if (userForm.get('fullName')?.errors?.['maxlength']) {
+                <span>Full name cannot exceed 50 characters.</span>
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Enter email address"
+          />
+
+          @if (
+            userForm.get('email')?.touched &&
+            userForm.get('email')?.invalid
+          ) {
+
+            <div class="error-message">
+
+              @if (userForm.get('email')?.errors?.['required']) {
+                <span>Email is required.</span>
+              }
+
+              @if (userForm.get('email')?.errors?.['email']) {
+                <span>Please enter a valid email address.</span>
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="phone">
+            Phone
+          </label>
+
+          <input
+            id="phone"
+            type="text"
+            formControlName="phone"
+            placeholder="Enter 10-digit phone number"
+            maxlength="10"
+          />
+
+          @if (
+            userForm.get('phone')?.touched &&
+            userForm.get('phone')?.invalid
+          ) {
+
+            <div class="error-message">
+
+              @if (userForm.get('phone')?.errors?.['required']) {
+                <span>Phone number is required.</span>
+              }
+
+              @if (userForm.get('phone')?.errors?.['pattern']) {
+                <span>
+                  Phone number must contain exactly 10 digits.
+                </span>
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <duet-button
+            variation="primary"
+            [disabled]="userForm.invalid || loading"
+            (click)="submit()"
+          >
+            {{ loading ? 'Saving...' : 'Save User' }}
+          </duet-button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

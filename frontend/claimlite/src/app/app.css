@@ -1,0 +1,106 @@
+.app-container {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.header {
+  padding: 28px 40px 0;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Main heading */
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-align: left;
+}
+
+.brand-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #245b9e;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(36, 91, 158, 0.25);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: -0.7px;
+}
+
+.brand p {
+  margin: 5px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Navigation */
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 25px;
+}
+
+.navbar a {
+  padding: 11px 24px;
+  border-radius: 8px 8px 0 0;
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navbar a:hover {
+  background: #f0f4f8;
+  color: #245b9e;
+}
+
+.content {
+  padding: 40px 24px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .header {
+    padding: 22px 20px 0;
+  }
+
+  .brand-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 21px;
+  }
+
+  .brand h1 {
+    font-size: 26px;
+  }
+
+  .brand p {
+    font-size: 12px;
+  }
+
+  .navbar a {
+    padding: 10px 18px;
+  }
+
+}

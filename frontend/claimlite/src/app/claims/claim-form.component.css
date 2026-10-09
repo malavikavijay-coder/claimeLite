@@ -1,0 +1,134 @@
+.page {
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #f5f7fa;
+}
+.close-button {
+  border: none;
+  background: transparent;
+  font-size: 30px;
+  color: #777;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.close-button:hover {
+  color: #222;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+  padding: 30px 35px 20px 35px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 15px;
+}
+
+.form-content {
+  padding: 30px 35px 35px 35px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #245b9e;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.error {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #c62828;
+}
+
+.success-message {
+  margin-bottom: 20px;
+  padding: 12px 15px;
+  border-radius: 6px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 25px 15px;
+  }
+
+  .header {
+    padding: 25px 20px 18px 20px;
+  }
+
+  .form-content {
+    padding: 25px 20px 30px 20px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions duet-button {
+    width: 100%;
+  }
+}
