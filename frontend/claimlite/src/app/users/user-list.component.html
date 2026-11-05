@@ -1,3 +1,5 @@
+
+
 <div class="page">
 
   <div class="header">
@@ -19,15 +21,12 @@
 
   </div>
 
-
   @if (loading) {
 
     <div class="state-card">
-
       <div class="state-content">
         <p>Loading users...</p>
       </div>
-
     </div>
 
   }
@@ -35,12 +34,9 @@
   @else if (users.length === 0) {
 
     <div class="state-card">
-
       <div class="state-content">
 
-        <div class="empty-icon">
-          👤
-        </div>
+        <div class="empty-icon">👤</div>
 
         <h3>No Policyholders Yet</h3>
 
@@ -57,7 +53,6 @@
         </duet-button>
 
       </div>
-
     </div>
 
   }
@@ -91,6 +86,25 @@
               </div>
 
             </div>
+
+          </div>
+
+          <div class="card-actions">
+
+            <duet-button
+              variation="primary"
+              (click)="editUser(user._id)"
+            >
+              Edit
+            </duet-button>
+
+            <duet-button
+              variation="danger"
+              [disabled]="deletingUserId === user._id"
+              (click)="deleteUser(user._id)"
+            >
+              {{ deletingUserId === user._id ? 'Deleting...' : 'Delete' }}
+            </duet-button>
 
           </div>
 

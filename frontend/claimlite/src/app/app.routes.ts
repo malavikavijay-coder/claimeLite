@@ -30,5 +30,15 @@ export const appRoutes: Routes = [
     path: '',
     redirectTo: 'users',
     pathMatch: 'full'
-  }
+  },
+
+  {
+  path: 'edit-user/:id',
+  component: UserFormComponent
+},
+
+{
+  path: 'edit-claim/:id',
+  component: ClaimFormComponent
+},
 ];

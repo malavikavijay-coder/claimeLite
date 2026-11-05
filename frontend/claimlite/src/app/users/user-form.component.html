@@ -1,3 +1,4 @@
+
 <div class="page">
 
   <div class="form-container">
@@ -5,23 +6,22 @@
     <div class="form-header">
 
       <div>
-        <h2>Add Policyholder</h2>
+        <h2>{{ userId ? 'Update Policyholder' : 'Add Policyholder' }}</h2>
 
         <p>
-          Enter the policyholder details below.
+          {{ userId ? 'Update the policyholder details below.' : 'Enter the policyholder details below.' }}
         </p>
       </div>
+
       <button
-  type="button"
-  class="close-button"
-  (click)="cancel()"
->
-  ×
-</button>
+        type="button"
+        class="close-button"
+        (click)="cancel()"
+      >
+        ×
+      </button>
 
     </div>
-    
-
 
     @if (successMessage) {
 
@@ -34,7 +34,6 @@
       </div>
 
     }
-
 
     <div class="form-card">
 
@@ -81,7 +80,6 @@
 
         </div>
 
-
         <div class="form-field">
 
           <label for="email">
@@ -115,7 +113,6 @@
           }
 
         </div>
-
 
         <div class="form-field">
 
@@ -154,7 +151,6 @@
 
         </div>
 
-
         <div class="form-actions">
 
           <duet-button
@@ -162,7 +158,7 @@
             [disabled]="userForm.invalid || loading"
             (click)="submit()"
           >
-            {{ loading ? 'Saving...' : 'Save User' }}
+            {{ loading ? 'Saving...' : (userId ? 'Update User' : 'Save User') }}
           </duet-button>
 
         </div>

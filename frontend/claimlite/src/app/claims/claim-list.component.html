@@ -1,3 +1,5 @@
+
+
 <div class="page">
 
   <div class="header">
@@ -18,7 +20,6 @@
     </duet-button>
 
   </div>
-
 
   @if (loading) {
 
@@ -95,6 +96,25 @@
             <div class="detail">
               <span class="label">Submitted</span>
               <span>{{ claim.createdAt | date:'medium' }}</span>
+            </div>
+
+            <div class="card-actions">
+
+              <duet-button
+                variation="primary"
+                (click)="editClaim(claim._id)"
+              >
+                Edit Claim
+              </duet-button>
+
+              <duet-button
+                variation="danger"
+                [disabled]="deletingClaimId === claim._id"
+                (click)="deleteClaim(claim._id)"
+              >
+                {{ deletingClaimId === claim._id ? 'Deleting...' : 'Delete Claim' }}
+              </duet-button>
+
             </div>
 
           </div>

@@ -1,3 +1,4 @@
+
 import {
   ChangeDetectorRef,
   Component,
@@ -22,6 +23,7 @@ export class UserListComponent implements OnInit {
 
   users: User[] = [];
   loading = false;
+  deletingUserId: string | null = null;
 
   constructor(
     private userService: UserService,
@@ -57,6 +59,49 @@ export class UserListComponent implements OnInit {
 
   addUser(): void {
     this.router.navigate(['/add-user']);
+  }
+  editUser(id: string): void {
+  this.router.navigate(['/edit-user', id]);
+  }
+
+  deleteUser(id: string): void {
+
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this policyholder?'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.deletingUserId = id;
+    this.cdr.markForCheck();
+
+    this.userService.deleteUser(id).subscribe({
+
+      next: (response) => {
+
+        window.alert(response.message);
+
+        this.deletingUserId = null;
+
+        this.loadUsers();
+
+        this.cdr.markForCheck();
+      },
+
+      error: (error) => {
+
+        window.alert(
+          error.error?.message || 'Unable to delete policyholder'
+        );
+
+        this.deletingUserId = null;
+
+        this.cdr.markForCheck();
+      }
+
+    });
   }
 
 }
