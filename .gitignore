@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-**/node_modules/
-**/.angular/
-**/.nx/
-**/dist/
-=======
 backend/.env
 **/node_modules/
 **/dist/
 **/.angular/
 **/.nx/
->>>>>>> main
