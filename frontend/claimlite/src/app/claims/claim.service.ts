@@ -17,6 +17,11 @@ export interface Claim {
   updatedAt: string;
 }
 
+export interface ClaimAnalysis {
+  claimType: Claim['claimType'];
+  riskScore: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +33,10 @@ export class ClaimService {
 
   getClaims(): Observable<Claim[]> {
     return this.http.get<Claim[]>(this.apiUrl);
+  }
+
+  analyzeClaim(description: string): Observable<ClaimAnalysis> {
+    return this.http.post<ClaimAnalysis>(`${this.apiUrl}/analyze`, { description });
   }
 
   createClaim(claim: {

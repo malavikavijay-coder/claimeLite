@@ -12,6 +12,7 @@ ClaimLite is a full-stack web application developed to manage policyholders and 
 * Create and manage insurance claims.
 * Support different claim types: Auto, Home, and Health.
 * Validate user and claim form inputs.
+* Analyze claim descriptions with Gemini to suggest a claim type and AI risk score.
 * Store application data in MongoDB.
 * Navigate between user and claim pages using Angular routing.
 
@@ -83,7 +84,9 @@ cd backend
 npm install
 ```
 
-Configure your MongoDB connection as required by the backend configuration, then start the server:
+Configure the backend environment in `backend/.env` with your MongoDB connection and Gemini API key. Use `backend/.env.example` as a template. Keep the real API key private; it is only used by the backend.
+
+Then start the server:
 
 ```bash
 node server.js
@@ -91,10 +94,10 @@ node server.js
 
 ### 3. Start the Frontend
 
-Open a new terminal and run:
+Open a new terminal in the `frontend` directory and run:
 
 ```bash
-cd frontend/claimlite
+cd frontend
 npm install
 ```
 
@@ -103,7 +106,7 @@ Start the Angular development server using the project's configured Nx or Angula
 For example, if the project's `project.json` defines the `serve` target:
 
 ```bash
-npx nx serve claimlite
+npm start
 ```
 
 Open the local URL displayed in the terminal to access the application.
@@ -114,7 +117,7 @@ Open the local URL displayed in the terminal to access the application.
 2. Navigate to the Users section to register policyholders.
 3. View the registered policyholders.
 4. Navigate to the Claims section to create and view insurance claims.
-5. Select the relevant claim type and enter the required details.
+5. Enter a claim description and select **Analyze Claim** to get a suggested claim type and risk score. Review the suggestion, then complete and save the claim.
 
 ## Future Enhancements
 

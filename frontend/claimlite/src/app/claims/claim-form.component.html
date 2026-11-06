@@ -183,7 +183,9 @@
           id="description"
           rows="5"
           placeholder="Enter claim description"
+          [disabled]="analyzing"
           [formControl]="claimForm.controls.description"
+          (input)="clearAnalysis()"
         ></textarea>
 
         @if (
@@ -210,6 +212,32 @@
         }
 
       </div>
+
+      <div class="analysis-actions">
+        <duet-button
+          variation="secondary"
+          [disabled]="analyzing || loading"
+          (click)="analyzeClaim()"
+        >
+          {{ analyzing ? 'Analyzing...' : 'Analyze Claim' }}
+        </duet-button>
+
+        @if (aiRiskScore !== null) {
+          <span class="risk-badge" [class.high-risk]="aiRiskScore >= 7">
+            AI Risk Score: {{ aiRiskScore }}/10
+          </span>
+        }
+      </div>
+
+      @if (analysisError) {
+        <div class="analysis-error" role="alert">
+          {{ analysisError }}
+        </div>
+      }
+
+      <p class="analysis-note">
+        AI results are suggestions only. Review the claim type and score before saving.
+      </p>
 
       <!-- Success message -->
 
