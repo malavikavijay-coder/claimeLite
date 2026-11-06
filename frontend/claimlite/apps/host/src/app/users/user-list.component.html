@@ -1,0 +1,105 @@
+<div class="page">
+
+  <div class="header">
+
+    <div>
+      <h2>Policyholders</h2>
+
+      <p class="subtitle">
+        Manage your registered policyholders.
+      </p>
+    </div>
+
+    <duet-button
+      variation="primary"
+      (click)="addUser()"
+    >
+      Add User
+    </duet-button>
+
+  </div>
+
+
+  @if (loading) {
+
+    <div class="state-card">
+
+      <div class="state-content">
+        <p>Loading users...</p>
+      </div>
+
+    </div>
+
+  }
+
+  @else if (users.length === 0) {
+
+    <div class="state-card">
+
+      <div class="state-content">
+
+        <div class="empty-icon">
+          👤
+        </div>
+
+        <h3>No Policyholders Yet</h3>
+
+        <p>
+          No users are registered yet.
+          Please add a policyholder to get started.
+        </p>
+
+        <duet-button
+          variation="primary"
+          (click)="addUser()"
+        >
+          Add Your First User
+        </duet-button>
+
+      </div>
+
+    </div>
+
+  }
+
+  @else {
+
+    <div class="user-grid">
+
+      @for (user of users; track user._id) {
+
+        <div class="user-card">
+
+          <div class="user-content">
+
+            <div class="avatar">
+              {{ user.fullName.charAt(0).toUpperCase() }}
+            </div>
+
+            <div class="user-info">
+
+              <h3>{{ user.fullName }}</h3>
+
+              <div class="detail">
+                <span class="label">Email</span>
+                <span>{{ user.email }}</span>
+              </div>
+
+              <div class="detail">
+                <span class="label">Phone</span>
+                <span>{{ user.phone }}</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

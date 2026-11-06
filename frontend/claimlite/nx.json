@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "analytics": false,
+  "projects": {
+    "host": "apps/host",
+    "claims-remote": "apps/claims-remote"
+  }
+}

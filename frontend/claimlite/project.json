@@ -1,9 +1,10 @@
+
 {
   "name": "claimlite",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "claimlite/src",
+  "sourceRoot": "src",
   "tags": [],
   "targets": {
     "build": {
@@ -12,15 +13,15 @@
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/claimlite",
-        "browser": "claimlite/src/main.ts",
-        "tsConfig": "claimlite/tsconfig.app.json",
+        "browser": "src/main.ts",
+        "tsConfig": "tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "claimlite/public"
+            "input": "public"
           }
         ],
-        "styles": ["claimlite/src/styles.css"]
+        "styles": ["src/styles.css"]
       },
       "configurations": {
         "production": {
