@@ -26,8 +26,11 @@ import { UserService, User } from '../users/user.service';
 export class ClaimFormComponent implements OnInit {
 
   loading = false;
+  analyzing = false;
   loadingUsers = false;
   successMessage = '';
+  analysisError = '';
+  aiRiskScore: number | null = null;
 
   users: User[] = [];
 
@@ -264,7 +267,41 @@ export class ClaimFormComponent implements OnInit {
     }
 
   }
-   getPolicyholderName(): string {
+
+  analyzeClaim(): void {
+    const description = this.claimForm.controls.description.value?.trim();
+
+    if (!description || description.length < 10 || description.length > 500) {
+      this.claimForm.controls.description.markAsTouched();
+      return;
+    }
+
+    this.analyzing = true;
+    this.analysisError = '';
+    this.aiRiskScore = null;
+
+    this.claimService.analyzeClaim(description).subscribe({
+      next: (analysis) => {
+        this.claimForm.controls.claimType.setValue(analysis.claimType);
+        this.aiRiskScore = analysis.riskScore;
+        this.analyzing = false;
+        this.cdr.markForCheck();
+      },
+      error: (error) => {
+        console.error('Unable to analyze claim', error);
+        this.analysisError = error.error?.message || 'Unable to analyze claim. Please try again.';
+        this.analyzing = false;
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
+  clearAnalysis(): void {
+    this.aiRiskScore = null;
+    this.analysisError = '';
+  }
+
+  getPolicyholderName(): string {
 
   const user = this.users.find(
     u => u._id === this.claimForm.controls.userId.value
