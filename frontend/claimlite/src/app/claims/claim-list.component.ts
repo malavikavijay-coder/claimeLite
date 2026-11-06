@@ -1,3 +1,4 @@
+
 import {
   ChangeDetectorRef,
   Component,
@@ -20,6 +21,7 @@ export class ClaimListComponent implements OnInit {
 
   claims: Claim[] = [];
   loading = false;
+  deletingClaimId: string | null = null;
 
   constructor(
     private claimService: ClaimService,
@@ -35,20 +37,67 @@ export class ClaimListComponent implements OnInit {
     this.loading = true;
 
     this.claimService.getClaims().subscribe({
+
       next: (claims) => {
         this.claims = claims;
         this.loading = false;
         this.cdr.markForCheck();
       },
+
       error: (error) => {
         console.error('Unable to load claims', error);
         this.loading = false;
         this.cdr.markForCheck();
       }
+
     });
   }
 
   addClaim(): void {
     this.router.navigate(['/add-claim']);
   }
+
+  editClaim(id: string): void {
+    this.router.navigate(['/edit-claim', id]);
+  }
+
+  deleteClaim(id: string): void {
+
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this claim?'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.deletingClaimId = id;
+    this.cdr.markForCheck();
+
+    this.claimService.deleteClaim(id).subscribe({
+
+      next: (response) => {
+
+        window.alert(response.message);
+
+        this.deletingClaimId = null;
+
+        this.loadClaims();
+
+        this.cdr.markForCheck();
+      },
+
+      error: (error) => {
+
+        window.alert(
+          error.error?.message || 'Unable to delete claim'
+        );
+
+        this.deletingClaimId = null;
+        this.cdr.markForCheck();
+      }
+
+    });
+  }
+
 }

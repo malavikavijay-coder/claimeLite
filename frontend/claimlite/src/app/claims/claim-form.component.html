@@ -1,3 +1,4 @@
+
 <div class="page">
 
   <div class="form-card">
@@ -5,64 +6,85 @@
     <div class="header">
 
       <div>
-        <h2>Add Claim</h2>
+        <h2>{{ claimId ? 'Update Claim' : 'Add Claim' }}</h2>
 
         <p class="subtitle">
-          Submit a new insurance claim.
+          {{ claimId ? 'Update the insurance claim details.' : 'Submit a new insurance claim.' }}
         </p>
       </div>
-      
+
       <button
-       type="button"
-       class="close-button"
-       (click)="cancel()"
-  >
+        type="button"
+        class="close-button"
+        (click)="cancel()"
+      >
         ×
       </button>
-    </div>
 
+    </div>
 
     <div class="form-content">
 
-      <!-- User -->
+      <!-- Policyholder -->
 
-      <div class="form-group">
+      
+      <!-- Policyholder -->
 
-        <label for="userId">
-          Policyholder
-        </label>
+     <div class="form-group">
 
-        <select
-          id="userId"
-          [formControl]="claimForm.controls.userId"
-        >
+      <label>
+       Policyholder
+      </label>
 
-          <option value="">
-            Select Policyholder
-          </option>
+      @if (claimId) {
 
-          @for (user of users; track user._id) {
+      <div class="readonly-field">
 
-            <option [value]="user._id">
-              {{ user.fullName }} - {{ user.email }}
-            </option>
+       <strong>
+        {{ claimForm.controls.userId.value ? getPolicyholderName() : 'Loading...' }}
+       </strong>
 
-          }
-
-        </select>
-
-        @if (
-          claimForm.controls.userId.touched &&
-          claimForm.controls.userId.invalid
-        ) {
-
-          <span class="error">
-            Please select a policyholder.
-          </span>
-
-        }
+       <span>
+        {{ getPolicyholderEmail() }}
+       </span>
 
       </div>
+
+       } @else {
+
+       <select
+        id="userId"
+        [formControl]="claimForm.controls.userId"
+       >
+
+      <option value="">
+        Select Policyholder
+      </option>
+
+      @for (user of users; track user._id) {
+
+        <option [value]="user._id">
+          {{ user.fullName }} - {{ user.email }}
+        </option>
+
+      }
+
+      </select>
+
+     @if (
+      claimForm.controls.userId.touched &&
+      claimForm.controls.userId.invalid
+      ) {
+
+      <span class="error">
+        Please select a policyholder.
+      </span>
+
+      }
+
+    }
+
+     </div>
 
 
       <!-- Claim Type -->
@@ -109,7 +131,6 @@
 
       </div>
 
-
       <!-- Amount -->
 
       <div class="form-group">
@@ -150,7 +171,6 @@
 
       </div>
 
-
       <!-- Description -->
 
       <div class="form-group">
@@ -163,7 +183,9 @@
           id="description"
           rows="5"
           placeholder="Enter claim description"
+          [disabled]="analyzing"
           [formControl]="claimForm.controls.description"
+          (input)="clearAnalysis()"
         ></textarea>
 
         @if (
@@ -191,6 +213,31 @@
 
       </div>
 
+      <div class="analysis-actions">
+        <duet-button
+          variation="secondary"
+          [disabled]="analyzing || loading"
+          (click)="analyzeClaim()"
+        >
+          {{ analyzing ? 'Analyzing...' : 'Analyze Claim' }}
+        </duet-button>
+
+        @if (aiRiskScore !== null) {
+          <span class="risk-badge" [class.high-risk]="aiRiskScore >= 7">
+            AI Risk Score: {{ aiRiskScore }}/10
+          </span>
+        }
+      </div>
+
+      @if (analysisError) {
+        <div class="analysis-error" role="alert">
+          {{ analysisError }}
+        </div>
+      }
+
+      <p class="analysis-note">
+        AI results are suggestions only. Review the claim type and score before saving.
+      </p>
 
       <!-- Success message -->
 
@@ -201,7 +248,6 @@
         </div>
 
       }
-
 
       <!-- Buttons -->
 
@@ -214,13 +260,12 @@
           Cancel
         </duet-button>
 
-
         <duet-button
           variation="primary"
           [disabled]="claimForm.invalid || loading"
           (click)="submit()"
         >
-          {{ loading ? 'Saving...' : 'Save Claim' }}
+          {{ loading ? (claimId ? 'Updating...' : 'Saving...') : (claimId ? 'Update Claim' : 'Save Claim') }}
         </duet-button>
 
       </div>

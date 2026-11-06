@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -16,6 +17,11 @@ export interface Claim {
   updatedAt: string;
 }
 
+export interface ClaimAnalysis {
+  claimType: Claim['claimType'];
+  riskScore: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +35,10 @@ export class ClaimService {
     return this.http.get<Claim[]>(this.apiUrl);
   }
 
+  analyzeClaim(description: string): Observable<ClaimAnalysis> {
+    return this.http.post<ClaimAnalysis>(`${this.apiUrl}/analyze`, { description });
+  }
+
   createClaim(claim: {
     userId: string;
     claimType: 'Auto' | 'Home' | 'Health';
@@ -37,4 +47,21 @@ export class ClaimService {
   }): Observable<Claim> {
     return this.http.post<Claim>(this.apiUrl, claim);
   }
+
+  deleteClaim(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(
+      `${this.apiUrl}/${id}`
+    );
+  }
+  getClaimById(id: string): Observable<Claim> {
+  return this.http.get<Claim>(`${this.apiUrl}/${id}`);
+  }
+
+  updateClaim(id: string, claim: {
+   claimType: 'Auto' | 'Home' | 'Health';
+   amount: number;
+   description: string;
+  }): Observable<Claim> {
+   return this.http.put<Claim>(`${this.apiUrl}/${id}`, claim);
+ }
 }
