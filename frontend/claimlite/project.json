@@ -7,12 +7,13 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular/build:application",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/claimlite",
-        "browser": "claimlite/src/main.ts",
+        "index": "claimlite/src/index.html",
+        "main": "claimlite/src/main.ts",
         "tsConfig": "claimlite/tsconfig.app.json",
         "assets": [
           {
@@ -20,7 +21,12 @@
             "input": "claimlite/public"
           }
         ],
-        "styles": ["claimlite/src/styles.css"]
+        "styles": ["claimlite/src/styles.css"],
+        "customWebpackConfig": {
+          "path": "claimlite/webpack.config.js"
+        },
+        "commonChunk": false,
+        "extractLicenses": false
       },
       "configurations": {
         "production": {
@@ -36,6 +42,9 @@
               "maximumError": "8kb"
             }
           ],
+          "customWebpackConfig": {
+            "path": "claimlite/webpack.prod.config.js"
+          },
           "outputHashing": "all"
         },
         "development": {
@@ -47,7 +56,12 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular/build:dev-server",
+      "executor": "@nx/angular:dev-server",
+      "options": {
+        "port": 4200,
+        "liveReload": false,
+        "watch": false
+      },
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
@@ -67,7 +81,7 @@
       "options": {
         "buildTarget": "claimlite:build",
         "port": 4200,
-        "staticFilePath": "dist/claimlite/browser",
+        "staticFilePath": "dist/claimlite",
         "spa": true
       }
     }

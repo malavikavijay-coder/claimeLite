@@ -1,0 +1,110 @@
+{
+  "name": "claims",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "claims/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/claims",
+        "index": "claims/src/index.html",
+        "main": "claims/src/main.ts",
+        "tsConfig": "claims/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "claims/public"
+          }
+        ],
+        "styles": [
+          "claims/src/styles.css"
+        ],
+        "customWebpackConfig": {
+          "path": "claims/webpack.config.js"
+        },
+        "commonChunk": false,
+        "extractLicenses": false
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "customWebpackConfig": {
+            "path": "claims/webpack.prod.config.js"
+          },
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "readyWhen": {
+        "signal": true
+      },
+      "executor": "@nx/angular:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201,
+        "liveReload": false,
+        "hmr": false,
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        }
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "claims:build:production"
+        },
+        "development": {
+          "buildTarget": "claims:build:development"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "claims:build"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "claims:build",
+        "port": 4201,
+        "spa": true
+      }
+    }
+  }
+}

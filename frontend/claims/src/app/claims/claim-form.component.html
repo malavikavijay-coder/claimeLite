@@ -41,7 +41,7 @@
       <div class="readonly-field">
 
        <strong>
-        {{ claimForm.controls.userId.value ? getPolicyholderName() : 'Loading...' }}
+        {{ claimForm.controls.userId.value ? getPolicyholderName() : (loading ? 'Loading...' : 'Policyholder unavailable') }}
        </strong>
 
        <span>

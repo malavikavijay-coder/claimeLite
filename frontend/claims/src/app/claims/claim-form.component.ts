@@ -14,7 +14,7 @@ import {
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClaimService } from './claim.service';
-import { UserService, User } from '../users/user.service';
+import { UserService, User } from '../../../../shared/users/user.service';
 
 @Component({
   selector: 'app-claim-form',
@@ -134,7 +134,7 @@ export class ClaimFormComponent implements OnInit {
 
         this.claimForm.patchValue({
 
-          userId: claim.userId._id,
+          userId: claim.userId?._id ?? '',
           claimType: claim.claimType,
           amount: claim.amount,
           description: claim.description

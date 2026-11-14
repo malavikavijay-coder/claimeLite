@@ -54,11 +54,11 @@ export class ClaimListComponent implements OnInit {
   }
 
   addClaim(): void {
-    this.router.navigate(['/add-claim']);
+    this.router.navigate(['/claims/add-claim']);
   }
 
   editClaim(id: string): void {
-    this.router.navigate(['/edit-claim', id]);
+    this.router.navigate(['/claims/edit-claim', id]);
   }
 
   deleteClaim(id: string): void {

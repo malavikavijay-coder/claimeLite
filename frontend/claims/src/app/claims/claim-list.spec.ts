@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ClaimList } from './claim-list.component';
+import { ClaimListComponent } from './claim-list.component';
 
-describe('ClaimList', () => {
-  let component: ClaimList;
-  let fixture: ComponentFixture<ClaimList>;
+describe('ClaimListComponent', () => {
+  let component: ClaimListComponent;
+  let fixture: ComponentFixture<ClaimListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ClaimList],
+      imports: [ClaimListComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ClaimList);
+    fixture = TestBed.createComponent(ClaimListComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
   it('should create', () => {

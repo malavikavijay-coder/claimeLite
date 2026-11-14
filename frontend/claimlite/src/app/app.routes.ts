@@ -1,9 +1,12 @@
 import { Routes } from '@angular/router';
+import { loadRemoteModule } from '@angular-architects/module-federation';
 
 import { UserListComponent } from './users/user-list.component';
 import { UserFormComponent } from './users/user-form.component';
-import { ClaimListComponent } from './claims/claim-list.component';
-import { ClaimFormComponent } from './claims/claim-form.component';
+
+interface ClaimsRemote {
+  CLAIMS_ROUTES: Routes;
+}
 
 export const appRoutes: Routes = [
   {
@@ -18,27 +21,31 @@ export const appRoutes: Routes = [
 
   {
     path: 'claims',
-    component: ClaimListComponent
-  },
-
-  {
-    path: 'add-claim',
-    component: ClaimFormComponent
-  },
-
-  {
-    path: '',
-    redirectTo: 'users',
-    pathMatch: 'full'
+    loadChildren: () =>
+      loadRemoteModule<ClaimsRemote>({
+        type: 'manifest',
+        remoteName: 'claims',
+        exposedModule: './routes',
+      })
+        .then((remote) => {
+          if (!Array.isArray(remote.CLAIMS_ROUTES)) {
+            throw new Error('Claims remote did not export CLAIMS_ROUTES');
+          }
+          return remote.CLAIMS_ROUTES;
+        })
+        .catch((error) => {
+          console.error('Could not load Claims remote routes', error);
+          throw error;
+        }),
   },
 
   {
   path: 'edit-user/:id',
   component: UserFormComponent
 },
-
-{
-  path: 'edit-claim/:id',
-  component: ClaimFormComponent
+  {
+    path: '',
+    redirectTo: 'users',
+    pathMatch: 'full'
 },
 ];
