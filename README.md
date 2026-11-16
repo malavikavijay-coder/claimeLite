@@ -15,6 +15,7 @@ ClaimLite is a full-stack web application developed to manage policyholders and 
 * Analyze claim descriptions with Gemini to suggest a claim type and AI risk score.
 * Store application data in MongoDB.
 * Navigate between user and claim pages using Angular routing.
+* Run the Angular host and claims remote independently with Webpack Module Federation.
 
 ## Technologies Used
 
@@ -23,6 +24,7 @@ ClaimLite is a full-stack web application developed to manage policyholders and 
 * Angular
 * TypeScript
 * Nx
+* Webpack Module Federation
 * Duet Design System
 
 ### Backend
@@ -48,13 +50,9 @@ ClaimLite/
 │   ├── routes/
 │   └── server.js
 ├── frontend/
-│   └── claimlite/
-│       └── src/
-│           └── app/
-│               ├── users/
-│               ├── claims/
-│               ├── app.ts
-│               └── app.routes.ts
+│   ├── claimlite/        # Host shell and User Directory (port 4200)
+│   ├── claims/            # Claims remote (port 4201)
+│   └── shared/users/      # Policyholder API service used by both apps
 └── README.md
 ```
 
@@ -101,15 +99,15 @@ cd frontend
 npm install
 ```
 
-Start the Angular development server using the project's configured Nx or Angular command.
-
-For example, if the project's `project.json` defines the `serve` target:
+Start the host and claims remote together:
 
 ```bash
-npm start
+npm run start:all
 ```
 
-Open the local URL displayed in the terminal to access the application.
+Open `http://localhost:4200`. To run only one frontend application, use `npm run start:host` or `npm run start:claims`. The claims remote is also available on its own at `http://localhost:4201/claims`.
+
+Build the applications independently with `npm run build:host` and `npm run build:claims`. The host's runtime remote URL is set in `frontend/claimlite/public/mf.manifest.json`; change it for deployment and configure the remote server to allow cross-origin requests for its federation entry and chunks.
 
 ## Usage
 

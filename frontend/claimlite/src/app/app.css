@@ -1,106 +1,227 @@
-.app-container {
+:host {
+  display: block;
   min-height: 100vh;
-  background: #f5f7fa;
 }
 
-.header {
-  padding: 28px 40px 0;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+.app-shell {
+  min-height: 100vh;
 }
 
-/* Main heading */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  display: flex;
+  width: 252px;
+  flex-direction: column;
+  padding: 28px 18px 20px;
+  background: #10243a;
+  color: #d7e2ee;
+}
 
 .brand {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
-  text-align: left;
+  gap: 12px;
+  margin: 0 10px 54px;
+  color: inherit;
+  text-decoration: none;
 }
 
-.brand-icon {
-  width: 52px;
-  height: 52px;
+.brand-mark {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 12px;
+  background: #2a72be;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.brand-copy strong {
+  color: #fff;
+  font-size: 17px;
+  letter-spacing: -0.3px;
+}
+
+.brand-copy small {
+  color: #9db1c7;
+  font-size: 11px;
+}
+
+.nav-label,
+.eyebrow {
+  color: #91a7bd;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.15px;
+}
+
+.nav-label {
+  padding: 0 12px;
+}
+
+nav {
+  display: grid;
+  gap: 7px;
+  margin-top: 13px;
+}
+
+nav a {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: #b7c8d8;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+nav a:hover,
+nav a.active {
+  background: #1d3854;
+  color: #fff;
+}
+
+nav a.active {
+  box-shadow: inset 3px 0 #62a9f4;
+}
+
+.nav-icon {
+  width: 19px;
+  color: #91b6dc;
+  font-size: 19px;
+  text-align: center;
+}
+
+.sidebar-status {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  background: #245b9e;
-  color: white;
-  font-size: 25px;
-  font-weight: 700;
-  box-shadow: 0 4px 10px rgba(36, 91, 158, 0.25);
+  gap: 9px;
+  margin-top: auto;
+  padding: 13px 10px 0;
+  border-top: 1px solid #284057;
+  color: #a9bdcf;
+  font-size: 11px;
 }
 
-.brand h1 {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 700;
-  color: #1f2937;
-  letter-spacing: -0.7px;
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4bc28a;
+  box-shadow: 0 0 0 3px #254a4b;
 }
 
-.brand p {
-  margin: 5px 0 0;
-  color: #6b7280;
-  font-size: 14px;
+.main-panel {
+  min-height: 100vh;
+  margin-left: 252px;
 }
 
-/* Navigation */
-
-.navbar {
+.topbar {
   display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 25px;
+  min-height: 96px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 42px;
+  border-bottom: 1px solid #e6ebf1;
+  background: #fff;
 }
 
-.navbar a {
-  padding: 11px 24px;
-  border-radius: 8px 8px 0 0;
-  text-decoration: none;
-  color: #555;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.topbar h1 {
+  margin: 5px 0 0;
+  color: #182b3f;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
 }
 
-.navbar a:hover {
-  background: #f0f4f8;
+.eyebrow {
+  color: #72869a;
+  font-size: 9px;
+}
+
+.account-mark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid #dce5ee;
+  border-radius: 50%;
+  background: #f1f6fb;
   color: #245b9e;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .content {
-  padding: 40px 24px;
+  min-height: calc(100vh - 144px);
+  padding: 36px 42px;
 }
 
-/* Mobile */
+.footer {
+  padding: 0 42px 22px;
+  color: #8899a9;
+  font-size: 11px;
+}
 
-@media (max-width: 600px) {
+.footer span {
+  padding: 0 5px;
+  color: #bdc8d2;
+}
 
-  .header {
-    padding: 22px 20px 0;
+@media (max-width: 760px) {
+  .sidebar {
+    position: static;
+    width: auto;
+    padding: 16px 18px 12px;
   }
 
-  .brand-icon {
-    width: 44px;
-    height: 44px;
-    font-size: 21px;
+  .brand {
+    margin: 0 0 16px;
   }
 
-  .brand h1 {
-    font-size: 26px;
+  .nav-label,
+  .sidebar-status {
+    display: none;
   }
 
-  .brand p {
-    font-size: 12px;
+  nav {
+    display: flex;
+    margin-top: 0;
   }
 
-  .navbar a {
-    padding: 10px 18px;
+  nav a {
+    min-height: 38px;
+    padding: 0 10px;
   }
 
+  .main-panel {
+    margin-left: 0;
+  }
+
+  .topbar {
+    min-height: 76px;
+    padding: 16px 20px;
+  }
+
+  .content {
+    min-height: calc(100vh - 160px);
+    padding: 24px 16px;
+  }
+
+  .footer {
+    padding: 0 20px 18px;
+  }
 }

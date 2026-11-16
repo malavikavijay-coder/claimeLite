@@ -13,7 +13,7 @@ import {
 } from '@angular/forms';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from './user.service';
+import { UserService } from '../../../../shared/users/user.service';
 
 @Component({
   selector: 'app-user-form',

@@ -9,7 +9,7 @@ export interface Claim {
     _id: string;
     fullName: string;
     email: string;
-  };
+  } | null;
   claimType: 'Auto' | 'Home' | 'Health';
   amount: number;
   description: string;

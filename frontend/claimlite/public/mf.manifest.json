@@ -1,0 +1,6 @@
+{
+  "claims": {
+    "type": "module",
+    "remoteEntry": "http://localhost:4201/remoteEntry.js"
+  }
+}

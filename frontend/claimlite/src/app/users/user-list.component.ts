@@ -8,7 +8,7 @@ import {
   Output
 } from '@angular/core';
 
-import { User, UserService } from './user.service';
+import { User, UserService } from '../../../../shared/users/user.service';
 import { Router } from '@angular/router';
 
 @Component({

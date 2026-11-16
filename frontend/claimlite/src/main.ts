@@ -1,8 +1,5 @@
-import { defineCustomElements } from '@duetds/components/lib/loader';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import { initFederation } from '@angular-architects/module-federation';
 
-bootstrapApplication(App, appConfig).catch((err) => console.error(err));
-
-defineCustomElements(window);
+initFederation('/mf.manifest.json', true)
+  .then(() => import('./bootstrap'))
+  .catch((error) => console.error('Unable to initialize Module Federation', error));

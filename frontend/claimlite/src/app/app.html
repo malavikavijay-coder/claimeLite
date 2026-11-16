@@ -1,38 +1,43 @@
-<div class="app-container">
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/users" aria-label="ClaimLite home">
+      <span class="brand-mark">✓</span>
+      <span class="brand-copy">
+        <strong>ClaimLite</strong>
+        <small>Insurance workspace</small>
+      </span>
+    </a>
 
-  <header class="header">
-
-    <div class="brand">
-
-      <div class="brand-icon">
-        ✓
-      </div>
-
-      <div class="brand-text">
-        <h1>ClaimLite</h1>
-        <p>Insurance Claim Management System</p>
-      </div>
-
-    </div>
-
-    <nav class="navbar">
-
-      <a routerLink="/users">
-        Users
+    <span class="nav-label">WORKSPACE</span>
+    <nav aria-label="Main navigation">
+      <a routerLink="/users" routerLinkActive="active">
+        <span class="nav-icon">◎</span>
+        User Directory
       </a>
-
-      <a routerLink="/claims">
+      <a routerLink="/claims" routerLinkActive="active">
+        <span class="nav-icon">▤</span>
         Claims
       </a>
-
     </nav>
 
-  </header>
+    <div class="sidebar-status">
+      <span class="status-dot"></span>
+      <span>Workspace ready</span>
+    </div>
+  </aside>
 
-  <main class="content">
+  <div class="main-panel">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">CLAIMS MANAGEMENT</span>
+        <h1>Operations dashboard</h1>
+      </div>
+      <div class="account-mark" aria-label="ClaimLite account">CL</div>
+    </header>
 
-    <router-outlet></router-outlet>
-
-  </main>
-
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+    <footer class="footer">ClaimLite <span>·</span> Policyholder and claims workspace</footer>
+  </div>
 </div>
