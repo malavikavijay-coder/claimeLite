@@ -47,7 +47,7 @@ jobs:
           fi
 
       - name: Type-check
-        run: npx tsc --noEmit -p claimlite/tsconfig.app.json
+        run: npx tsc --noEmit -p claimlite/tsconfig.app.json --rootDir .
 
       - name: Run unit tests
         run: |
