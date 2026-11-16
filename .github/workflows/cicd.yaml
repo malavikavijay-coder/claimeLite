@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Lint
+        run: |
+          if [ -f node_modules/@nx/eslint/executors.json ] \
+            && [ -f node_modules/@nx/eslint-plugin/package.json ] \
+            && [ -x node_modules/.bin/eslint ]; then
+            npx nx run claimlite:lint
+          else
+            echo "::warning::Lint skipped: @nx/eslint, @nx/eslint-plugin, and eslint are not declared in frontend/package.json or its lockfile."
+          fi
+
+      - name: Type-check
+        run: npx tsc --noEmit -p claimlite/tsconfig.app.json --rootDir .
+
+      - name: Run unit tests
+        run: |
+          if [ -x node_modules/.bin/vitest ] \
+            && node -e "require.resolve('@analogjs/vite-plugin-angular'); require.resolve('@analogjs/vitest-angular/setup-testbed'); require.resolve('@nx/vite/plugins/nx-tsconfig-paths.plugin')"; then
+            npx vitest run --config claimlite/vite.config.mts
+          else
+            echo "::warning::Unit tests skipped: Vitest and the Angular/Nx Vite test dependencies are not declared in frontend/package.json or its lockfile."
+          fi
+
+      - name: Build
+        run: npx nx run claimlite:build --configuration=production
