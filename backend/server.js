@@ -1,38 +1,25 @@
-const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 require("dotenv").config({
     path: require("path").join(__dirname, ".env")
 });
 
-const userRoutes = require("./routes/userRoutes");
-const claimRoutes = require("./routes/claimRoutes");
+const app = require("./app");
 
-const app = express();
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-app.use("/api/users", userRoutes);
-app.use("/api/claims", claimRoutes);
-
-// Test API
-app.get("/api/test", (req, res) => {
-    res.json({
-        message: "ClaimLite backend is working!"
-    });
-});
+const PORT = process.env.PORT || 3000;
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log("MongoDB connected successfully");
+if (process.env.NODE_ENV !== "test") {
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => {
+            console.log("MongoDB connected successfully");
 
-        app.listen(process.env.PORT, () => {
-            console.log(`Backend running on port ${process.env.PORT}`);
+            app.listen(PORT, () => {
+                console.log(`Backend running on port ${PORT}`);
+            });
+        })
+        .catch((error) => {
+            console.error("MongoDB connection failed:", error);
         });
-    })
-    .catch((error) => {
-        console.error("MongoDB connection failed:", error);
-    });
+}
+
+module.exports = app;
